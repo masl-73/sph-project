@@ -7,12 +7,12 @@ import sys
 # Add src to path to import simulation
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 try:
-    from src.simulation import render_fluid_grid
+    from src.viz_utils import render_fluid_grid
 except ImportError:
     try:
-        from simulation import render_fluid_grid
+        from viz_utils import render_fluid_grid
     except ImportError:
-        print("Could not import render_fluid_grid from simulation.py")
+        print("Could not import render_fluid_grid from viz_utils.py")
         sys.exit(1)
 
 def main():
