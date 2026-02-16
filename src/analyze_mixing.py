@@ -71,22 +71,25 @@ def main():
     widths = np.array(widths)
     
     # 2. Fit Curve (W ~ C * t^2)
-    # Filter data to only include growth phase (before hitting boundaries at 0.05m)
-    threshold = 0.048
-    growth_mask = widths < threshold
+    # Theoretically W = alpha * A * g * t^2. No intercept.
+    # We fit only the active growth phase: between initial jitter and boundary interaction.
+    mask = (widths > 0.005) & (widths < 0.045)
     
-    fit_times = times[growth_mask]
-    fit_widths = widths[growth_mask]
+    fit_times = times[mask]
+    fit_widths = widths[mask]
     
     if len(fit_times) > 1:
-        t_sq_fit = fit_times**2
-        slope, intercept = np.polyfit(t_sq_fit, fit_widths, 1)
+        # We want to solve: fit_widths = slope * (fit_times^2)
+        # Using linalg.lstsq for a pure y = mx fit (intercept = 0)
+        X = (fit_times**2)[:, np.newaxis]
+        slope, _, _, _ = np.linalg.lstsq(X, fit_widths, rcond=None)
+        slope = slope[0]
         
         alpha_fit = slope / (Atwood * g)
-        print(f"Fitted Alpha (Growth Phase): {alpha_fit:.4f}")
+        print(f"Fitted Alpha (Pure Growth): {alpha_fit:.4f}")
         
-        # Calculate fitted curve for all times to show the theoretical trajectory
-        fitted_curve = slope * (times**2) + intercept
+        # Calculate fitted curve for all times
+        fitted_curve = slope * (times**2)
     else:
         alpha_fit = 0
         fitted_curve = np.zeros_like(times)
