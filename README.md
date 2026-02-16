@@ -2,7 +2,6 @@
 
 A high-performance Smoothed Particle Hydrodynamics (SPH) simulation of Rayleigh-Taylor Instability (RTI) featuring hexagonal particle packing, Numba-accelerated physics, and "Neon-style" visualizations.
 
-![Simulation Preview](output/step_00000.png) *(Note: Add a representative image link here)*
 
 ## 🚀 Features
 
@@ -60,6 +59,17 @@ Generate comprehensive data plots from checkpoints:
 ./run_analysis.sh
 ```
 
+## 📊 Simulation Results (Step 17000)
+
+| Fluid Density | Velocity Field |
+|:---:|:---:|
+| ![Step 17000](step_17000.png) | ![Velocity 17000](vel_step_17000.png) |
+
+### Real-time Analysis
+| Energy Conservation | Mixing Layer Width |
+|:---:|:---:|
+| ![Energy Latest](energy_latest.png) | ![Mixing Latest](mixing_latest.png) |
+
 ## 📊 Project Structure
 
 - `src/`: Core implementation.
@@ -71,4 +81,4 @@ Generate comprehensive data plots from checkpoints:
 - `output_analysis/`: Statistical plots and metric logs.
 
 ## 📜 License
-MIT
+GPL-3.0

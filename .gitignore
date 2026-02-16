@@ -13,6 +13,8 @@
 !requirements.txt
 !README.md
 !.gitignore
+!LICENSE
+!*.png
 
 # Explicitly ignore heavy or generated folders even if they sneak in
 data/
