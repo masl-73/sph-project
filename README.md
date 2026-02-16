@@ -62,7 +62,9 @@ Generate comprehensive data plots from checkpoints:
 | ![Simulation Step](step.png) | ![Velocity Field](vel_step.png) |
 
 > [!TIP]
-> **View the full evolution**: [Velocity Field Evolution Video (MP4)](velocity_evolution.mp4)
+> **View the full evolution**:
+> ![Velocity Field Evolution](velocity_evolution.gif)
+> *[High Quality MP4 Version](velocity_evolution.mp4)*
 
 ### Real-time Analysis
 | Energy Conservation | Mixing Layer Width |
