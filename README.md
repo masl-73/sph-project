@@ -75,7 +75,7 @@ Generate comprehensive data plots from checkpoints:
 
 ## 🧪 Physical Analysis Suite
 
-Detailed diagnostics performed on the final simulation data (54,300+ steps):
+Detailed diagnostics performed on the final simulation data (67,500+ steps):
 
 ### 1. Turbulence & Vorticity
 The **Vorticity Field** shows the formation of pairs of counter-rotating vortices along the spikes (Kelvin-Helmholtz instability). The **Enstrophy** plot tracks the total square vorticity, providing a proxy for turbulence intensity over time.
