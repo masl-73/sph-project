@@ -71,18 +71,22 @@ def main():
     widths = np.array(widths)
     
     # 2. Fit Curve (W ~ C * t^2)
-    # We fit width vs t^2 using polyfit magnitude 1
-    # fit: width = slope * (t^2) + intercept
-    # slope = alpha * A * g
+    # Filter data to only include growth phase (before hitting boundaries at 0.05m)
+    threshold = 0.048
+    growth_mask = widths < threshold
     
-    if len(times) > 0:
-        t_sq = times**2
-        slope, intercept = np.polyfit(t_sq, widths, 1)
+    fit_times = times[growth_mask]
+    fit_widths = widths[growth_mask]
+    
+    if len(fit_times) > 1:
+        t_sq_fit = fit_times**2
+        slope, intercept = np.polyfit(t_sq_fit, fit_widths, 1)
         
         alpha_fit = slope / (Atwood * g)
-        print(f"Fitted Alpha: {alpha_fit:.4f}")
+        print(f"Fitted Alpha (Growth Phase): {alpha_fit:.4f}")
         
-        fitted_curve = slope * t_sq + intercept
+        # Calculate fitted curve for all times to show the theoretical trajectory
+        fitted_curve = slope * (times**2) + intercept
     else:
         alpha_fit = 0
         fitted_curve = np.zeros_like(times)
@@ -95,7 +99,7 @@ def main():
     ax = plt.gca()
     ax.set_facecolor('black')
     
-    plt.plot(times, widths, label='Mixing Width ($h_b - h_s$)', color='cyan', linewidth=2)
+    plt.plot(times, widths, label='Mixing Width ($h_b - h_s$)', color='cyan', linewidth=4)
     
     if alpha_fit > 0:
         plt.plot(times, fitted_curve, label=r'Fit: $\alpha A g t^2$ ($\alpha \approx ' + f'{alpha_fit:.3f}$)', 
@@ -115,7 +119,8 @@ def main():
     plt.tight_layout()
     output_file = "output_analysis/mixing_width.png"
     plt.savefig(output_file, facecolor='black', edgecolor='none')
-    print(f"Mixing analysis saved to {output_file}")
+    plt.savefig("mixing_latest.png", facecolor='black', edgecolor='none')
+    print(f"Mixing analysis saved to {output_file} and mixing_latest.png")
 
 if __name__ == "__main__":
     main()
