@@ -19,11 +19,24 @@ def main():
     dt = 0.000004 
     
     # Fluid parameters for Atwood number
-    rho_light = 1000
-    rho_heavy = 2333
+    # Try to load from first checkpoint if available
+    first_data = np.load(files[0])
+    if 'rho_refs' in first_data:
+        unique_rhos = np.unique(first_data['rho_refs'])
+        if len(unique_rhos) >= 2:
+            rho_light = unique_rhos[0]
+            rho_heavy = unique_rhos[1]
+        else:
+            rho_light = 1000.0
+            rho_heavy = 3000.0
+    else:
+        rho_light = 1000.0
+        rho_heavy = 3000.0
+
     Atwood = (rho_heavy - rho_light) / (rho_heavy + rho_light)
     g = 100.0
 
+    print(f"Using Densities: L={rho_light:.0f}, H={rho_heavy:.0f}")
     print(f"Atwood Number A = {Atwood:.3f}")
 
     for i, filename in enumerate(files):
