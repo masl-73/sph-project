@@ -59,11 +59,11 @@ Generate comprehensive data plots from checkpoints:
 ./run_analysis.sh
 ```
 
-## 📊 Simulation Results (Step 17000)
+## 📊 Simulation Results
 
 | Fluid Density | Velocity Field |
 |:---:|:---:|
-| ![Step 17000](step_17000.png) | ![Velocity 17000](vel_step_17000.png) |
+| ![Simulation Step](step.png) | ![Velocity Field](vel_step.png) |
 
 ### Real-time Analysis
 | Energy Conservation | Mixing Layer Width |
