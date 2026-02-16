@@ -71,7 +71,7 @@ def main():
         
         # Save Vorticity Map for every frame
         print(f"Generating Vorticity Map for step {step} ({i+1}/{len(files)})...")
-        plt.figure(figsize=(10, 6), facecolor='black')
+        plt.figure(figsize=(10, 5), facecolor='black')
         ax = plt.gca()
         ax.set_facecolor('black')
         
@@ -98,7 +98,7 @@ def main():
     times = np.array(times)
     enstrophies = np.array(enstrophies)
     
-    plt.figure(figsize=(10, 6), facecolor='black')
+    plt.figure(figsize=(10, 5), facecolor='black')
     ax = plt.gca()
     ax.set_facecolor('black')
     
