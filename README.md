@@ -98,6 +98,14 @@ The **Kinetic Energy Power Spectrum** confirms that the simulation resolves turb
 | Power Spectrum (k^-3) | Density PDF |
 |:---:|:---:|
 | ![Power Spectrum](power_spectrum.png) | ![Density PDF](density_pdf.png) |
+ 
+**Deep Dive: Understanding the Energy Cascade ($k^{-3}$)**
+The power spectrum is a window into the multiscale nature of the flow. It shows how much kinetic energy is stored in structures of different sizes:
+ 
+1.  **Low Wavenumbers ($k < 10^3$):** This "energy-containing range" corresponds to the largest structures in the simulation—the primary Rayleigh-Taylor bubbles and spikes. Most of the energy injected by gravity enters the system here.
+2.  **The $k^{-3}$ Slope (Enstrophy Cascade):** Unlike 3D turbulence (which follows the Kolmogorov $k^{-5/3}$ law), 2D turbulence is characterized by a "dual cascade." The specific $-3$ slope indicates the **Enstrophy Cascading Range**. In this regime, large-scale vortices (whirls) are effectively broken down into smaller and smaller eddies.
+3.  **Numerical Resolution:** The fact that our simulation follows this theoretical slope over nearly a decade of scale confirms that our SPH method is not overly dissipative. It successfully captures the transfer of mechanical energy across different lengths, which is critical for modeling the transition to turbulence.
+4.  **High Wavenumber Cutoff ($k > 10^4$):** At very small scales (comparable to the smoothing length $H$), energy is dissipated by artificial viscosity. This represents the "viscous subrange" where turbulent motion is converted into internal heat.
 
 
 
