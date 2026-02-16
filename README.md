@@ -80,9 +80,9 @@ Detailed diagnostics performed on the final simulation data (54,300+ steps):
 ### 1. Turbulence & Vorticity
 The **Vorticity Field** shows the formation of pairs of counter-rotating vortices along the spikes (Kelvin-Helmholtz instability). The **Enstrophy** plot tracks the total square vorticity, providing a proxy for turbulence intensity over time.
 
-| Final Vorticity Field | Enstrophy Evolution |
+| Final Vorticity Evolution | Enstrophy Evolution |
 |:---:|:---:|
-| ![Vorticity Latest](vorticity_latest.png) | ![Enstrophy](enstrophy.png) |
+| <img src="vorticity_evolution.gif" width="500"> | ![Enstrophy](enstrophy.png) |
 
 **Deep Dive: The Enstrophy Curve Breakdown**
 The enstrophy plot is a "heartbeat" of the simulation's complexity. Here is what the specific features represent:
