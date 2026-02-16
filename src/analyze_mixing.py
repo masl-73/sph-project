@@ -70,25 +70,23 @@ def main():
     times = np.array(times)
     widths = np.array(widths)
     
-    # 2. Fit Curve (W ~ C * t^2)
+    # 2. Normalize widths to start at 0 (Growth definition)
+    widths = widths - widths[0]
+    
+    # 3. Fit Curve (W ~ C * t^2)
     # Theoretically W = alpha * A * g * t^2. No intercept.
-    # We fit only the active growth phase: between initial jitter and boundary interaction.
     mask = (widths > 0.005) & (widths < 0.045)
     
     fit_times = times[mask]
     fit_widths = widths[mask]
     
     if len(fit_times) > 1:
-        # We want to solve: fit_widths = slope * (fit_times^2)
-        # Using linalg.lstsq for a pure y = mx fit (intercept = 0)
         X = (fit_times**2)[:, np.newaxis]
         slope, _, _, _ = np.linalg.lstsq(X, fit_widths, rcond=None)
         slope = slope[0]
         
         alpha_fit = slope / (Atwood * g)
-        print(f"Fitted Alpha (Pure Growth): {alpha_fit:.4f}")
-        
-        # Calculate fitted curve for all times
+        print(f"Fitted Alpha (Normalized): {alpha_fit:.4f}")
         fitted_curve = slope * (times**2)
     else:
         alpha_fit = 0
@@ -102,7 +100,7 @@ def main():
     ax = plt.gca()
     ax.set_facecolor('black')
     
-    plt.plot(times, widths, label='Mixing Width ($h_b - h_s$)', color='cyan', linewidth=4)
+    plt.plot(times, widths, label='Mixing Width ($\Delta h$)', color='cyan', linewidth=4)
     
     if alpha_fit > 0:
         plt.plot(times, fitted_curve, label=r'Fit: $\alpha A g t^2$ ($\alpha \approx ' + f'{alpha_fit:.3f}$)', 
@@ -111,11 +109,10 @@ def main():
     plt.xlabel('Time (s)', color='white')
     plt.ylabel('Width (m)', color='white')
     plt.title(f'Mixing Layer Growth (A={Atwood:.2f})', color='white')
-    plt.ylim(-0.002, 0.055)
-    plt.xlim(0, times[-1] * 1.02)
     
-    print(f"First 5 widths: {widths[:5]}")
-    print(f"First 5 times: {times[:5]}")
+    # Margins to see the origin (0,0) clearly
+    plt.ylim(-0.005, 0.055)
+    plt.xlim(-0.01, times[-1] * 1.05)
     
     ax.tick_params(axis='x', colors='white')
     ax.tick_params(axis='y', colors='white')
