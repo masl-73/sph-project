@@ -16,6 +16,7 @@ def main():
     times = []
     Ek_list = []
     Ep_list = []
+    Ei_list = []
     Etot_list = []
 
     dt = 0.000004 # Time step from simulation.py
@@ -41,22 +42,26 @@ def main():
         Ek = 0.5 * np.sum(masses * v_sq)
         
         # Potential Energy: m * g * y
-        # Gravity is -100 in y direction, so Ep = m * 100 * y
         y_coords = positions[:, 1]
         Ep = np.sum(masses * g * y_coords)
         
-        Etot = Ek + Ep
+        # Internal Energy (Heat/Viscous work)
+        Ei = float(data['internal_energy']) if 'internal_energy' in data else 0.0
+        
+        Etot = Ek + Ep + Ei
         
         steps.append(step)
         times.append(t)
         Ek_list.append(Ek)
         Ep_list.append(Ep)
+        Ei_list.append(Ei)
         Etot_list.append(Etot)
 
     # Convert to numpy arrays for easier plotting
     times = np.array(times)
     Ek_list = np.array(Ek_list)
     Ep_list = np.array(Ep_list)
+    Ei_list = np.array(Ei_list)
     Etot_list = np.array(Etot_list)
 
     # Plotting
@@ -68,9 +73,10 @@ def main():
     ax.set_facecolor('black')
     
     # Plot Energies
-    plt.plot(times, Ek_list, label='Kinetic Energy (Ek)', color='cyan', linewidth=2)
-    plt.plot(times, Ep_list, label='Potential Energy (Ep)', color='magenta', linewidth=2)
-    plt.plot(times, Etot_list, label='Total Energy (Etot)', color='white', linewidth=3, linestyle='--')
+    plt.plot(times, Ek_list, label='Kinetic (Ek)', color='cyan', linewidth=4)
+    plt.plot(times, Ep_list, label='Potential (Ep)', color='magenta', linewidth=4)
+    plt.plot(times, Ei_list, label='Internal (Eint)', color='orange', linewidth=4)
+    plt.plot(times, Etot_list, label='Total (Ek+Ep+Eint)', color='white', linewidth=5, linestyle='--')
     
     plt.xlabel('Time (s)', color='white', fontsize=12)
     plt.ylabel('Energy (J)', color='white', fontsize=12)
@@ -89,7 +95,8 @@ def main():
     plt.tight_layout()
     output_file = "output_analysis/energy_balance.png"
     plt.savefig(output_file, facecolor='black', edgecolor='none')
-    print(f"Energy analysis saved to {output_file}")
+    plt.savefig("energy_latest.png", facecolor='black', edgecolor='none')
+    print(f"Energy analysis saved to {output_file} and energy_latest.png")
 
     # Print failure statistics (how much energy changed?)
     E_start = Etot_list[0]
