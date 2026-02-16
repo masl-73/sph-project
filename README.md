@@ -72,9 +72,12 @@ Generate comprehensive data plots from checkpoints:
 
 ### Energy Conservation Note
 
-The simulation utilizes an explicit Smoothed Particle Hydrodynamics (SPH) solver. Users may observe a transient increase in total energy ($E_{tot}$) during the initial steps. This is a standard numerical artifact known as **particle settling** or **lattice relaxation**.
+The simulation utilizes an explicit Smoothed Particle Hydrodynamics (SPH) solver. Users may observe a transient increase in total energy ($E_{tot}$) during the initial steps. This is a standard numerical artifact known as **lattice relaxation**. Because particles are initialized on a strict hexagonal grid, they must "relax" into a more physically stable configuration.
 
-Because particles are initialized on a strict hexagonal grid, the initial pressure forces are slightly unbalanced relative to the SPH equilibrium state. As particles "relax" into a more physically stable configuration, localized pressure work is converted into internal energy via artificial viscosity. Once this initial phase completes, the system stabilizes and demonstrates excellent energy conservation.
+#### Dissipation and Heat Conversion
+As the Rayleigh-Taylor instability develops, **Potential Energy ($E_p$)** is converted into **Kinetic Energy ($E_k$)**. In a purely inviscid flow, this would result in a zero-sum exchange. However, to maintain numerical stability and model realistic fluid behavior, we employ **Monaghan Artificial Viscosity**.
+
+This viscosity term performs dissipative work on the particles, effectively converting a portion of the mechanical energy into **Internal Energy ($E_{int}$)**—the simulation's equivalent of heat. By explicitly tracking this "viscous heating" component, we ensure that the global energy balance ($E_{tot} = E_k + E_p + E_{int}$) remains conserved over time, even as macroscopic motion is dissipated by the viscosity kernels.
 
 ## 📊 Project Structure
 
