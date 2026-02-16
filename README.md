@@ -1,5 +1,5 @@
 # Neon RTI: SPH Rayleigh-Taylor Instability Simulation
-<!-- Last updated: 2026-02-16 20:05 -->
+<!-- Last updated: 2026-02-16 22:15 -->
 
 A high-performance Smoothed Particle Hydrodynamics (SPH) simulation of Rayleigh-Taylor Instability (RTI) featuring hexagonal particle packing, Numba-accelerated physics, and "Neon-style" visualizations.
 
@@ -75,7 +75,7 @@ Generate comprehensive data plots from checkpoints:
 
 ## 🧪 Physical Analysis Suite
 
-Detailed diagnostics performed on the final simulation data (67,500+ steps):
+Detailed diagnostics performed on the final simulation data (80,000 steps):
 
 ### 1. Turbulence & Vorticity
 The **Vorticity Field** shows the formation of pairs of counter-rotating vortices along the spikes (Kelvin-Helmholtz instability). The **Enstrophy** plot tracks the total square vorticity, providing a proxy for turbulence intensity over time.
