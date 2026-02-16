@@ -68,7 +68,7 @@ def main():
     if not os.path.exists('output_analysis'):
         os.makedirs('output_analysis')
 
-    plt.figure(figsize=(12, 8), facecolor='black')
+    plt.figure(figsize=(10, 6), facecolor='black')
     ax = plt.gca()
     ax.set_facecolor('black')
     
