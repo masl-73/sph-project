@@ -91,12 +91,7 @@ The **Kinetic Energy Power Spectrum** confirms that the simulation resolves turb
 |:---:|:---:|
 | ![Power Spectrum](power_spectrum.png) | ![Density PDF](density_pdf.png) |
 
-### 3. Global Conservation & Growth
-The **Global Energy Balance** tracks the conversion of Potential Energy into Kinetic and Internal (viscous heat) energy, ensuring numerical consistency. The **Mixing Width** confirms that the instability grows quadratically ($\alpha A g t^2$) with a fitted growth coefficient $\alpha \approx 0.029$.
 
-| Global Energy Balance | Mixing Layer Growth |
-|:---:|:---:|
-| ![Energy Balance](energy_balance.png) | ![Mixing Width](mixing_width.png) |
 
 ### Physics of Energy in the System
 
