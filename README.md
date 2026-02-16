@@ -1,4 +1,5 @@
 # Neon RTI: SPH Rayleigh-Taylor Instability Simulation
+<!-- Last updated: 2026-02-16 20:05 -->
 
 A high-performance Smoothed Particle Hydrodynamics (SPH) simulation of Rayleigh-Taylor Instability (RTI) featuring hexagonal particle packing, Numba-accelerated physics, and "Neon-style" visualizations.
 
