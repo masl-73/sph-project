@@ -42,9 +42,7 @@ def main():
     if not os.path.exists('output_analysis'):
         os.makedirs('output_analysis')
 
-    # Select frames for maps (every ~10th file)
-    frame_indices = np.linspace(0, len(files)-1, 10, dtype=int)
-    
+    # Process ALL frames for animation
     for i, filename in enumerate(files):
         data = np.load(filename)
         step = data['step']
@@ -58,48 +56,43 @@ def main():
         grid_vy = render_fluid_grid(positions, velocities[:, 1], h, viz_nx, viz_ny, domain_x, domain_y)
         
         # Compute Gradients: dVy/dx - dVx/dy
-        # np.gradient returns [d/dy, d/dx] for 2D array
-        grad_vy = np.gradient(grid_vy, dy, dx) # [dUy/dy, dUy/dx]
-        grad_vx = np.gradient(grid_vx, dy, dx) # [dUx/dy, dUx/dx]
+        grad_vy = np.gradient(grid_vy, dy, dx)
+        grad_vx = np.gradient(grid_vx, dy, dx)
         
         dvy_dx = grad_vy[1]
         dvx_dy = grad_vx[0]
-        
         vorticity = dvy_dx - dvx_dy
         
-        # Enstrophy = sum(omega^2) * area_element (integral)
-        # area_element = dx * dy
         enstrophy = np.sum(vorticity**2) * (dx * dy)
         
         steps.append(step)
         times.append(t)
         enstrophies.append(enstrophy)
         
-        # Save Vorticity Map for selected frames
-        if i in frame_indices:
-            print(f"Generating Vorticity Map for step {step}...")
-            plt.figure(figsize=(10, 5), facecolor='black')
-            ax = plt.gca()
-            ax.set_facecolor('black')
-            
-            # Plot Vorticity
-            # Use seismic colormap centered at 0 (Red=Positive/CCW, Blue=Negative/CW)
-            limit = np.max(np.abs(vorticity)) if np.max(np.abs(vorticity)) > 0 else 1.0
-            im = plt.imshow(vorticity, origin='lower', extent=[0, domain_x, 0, domain_y], 
-                       cmap='seismic', vmin=-limit, vmax=limit, interpolation='bicubic')
-            
-            plt.axis('off')
-            plt.title(f"Vorticity Field (Step {step})", color='white')
-            
-            cbar = plt.colorbar(im, ax=ax, fraction=0.046, pad=0.04)
-            cbar.ax.yaxis.set_tick_params(color='white')
-            plt.setp(plt.getp(cbar.ax.axes, 'yticklabels'), color='white')
-            cbar.set_label('Vorticity (1/s)', color='white')
-            
-            output_map = f"output_analysis/vorticity_step_{step:05d}.png"
-            plt.tight_layout()
-            plt.savefig(output_map, facecolor='black', edgecolor='none')
-            plt.close()
+        # Save Vorticity Map for every frame
+        print(f"Generating Vorticity Map for step {step} ({i+1}/{len(files)})...")
+        plt.figure(figsize=(10, 5), facecolor='black')
+        ax = plt.gca()
+        ax.set_facecolor('black')
+        
+        # Use a fixed scale for animation stability
+        # Based on previous runs, +/- 50 to 100 is a good range for vorticity
+        limit = 100.0 
+        im = plt.imshow(vorticity, origin='lower', extent=[0, domain_x, 0, domain_y], 
+                   cmap='seismic', vmin=-limit, vmax=limit, interpolation='bicubic')
+        
+        plt.axis('off')
+        plt.title(f"Vorticity Field (Step {step})", color='white')
+        
+        cbar = plt.colorbar(im, ax=ax, fraction=0.046, pad=0.04)
+        cbar.ax.yaxis.set_tick_params(color='white')
+        plt.setp(plt.getp(cbar.ax.axes, 'yticklabels'), color='white')
+        cbar.set_label('Vorticity (1/s)', color='white')
+        
+        output_map = f"output_analysis/vorticity_map_{step:05d}.png"
+        plt.tight_layout()
+        plt.savefig(output_map, facecolor='black', edgecolor='none')
+        plt.close()
 
     # Plot Enstrophy Evolution
     times = np.array(times)
