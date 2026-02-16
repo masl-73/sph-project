@@ -59,14 +59,10 @@ Generate comprehensive data plots from checkpoints:
 ./run_analysis.sh
 ```
 
-## 📊 Simulation Results
-
-| Fluid Density | Velocity Field Evolution |
-|:---:|:---:|
-| ![Simulation Step](step.png) | ![Velocity Field Evolution](velocity_evolution.gif) |
+| ![Fluid Density Evolution](fluid_density.gif) | ![Velocity Field Evolution](velocity_evolution.gif) |
 
 > [!TIP]
-> Download the **[High Quality MP4 Version](velocity_evolution.mp4)** for offline viewing.
+> Download the High Quality MP4 Versions: **[Fluid Density](fluid_density.mp4)** | **[Velocity Field](velocity_evolution.mp4)**
 
 ### Real-time Analysis
 | Energy Conservation | Mixing Layer Width |
