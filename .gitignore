@@ -15,6 +15,7 @@
 !.gitignore
 !LICENSE
 !*.png
+!*.mp4
 
 # Explicitly ignore heavy or generated folders even if they sneak in
 data/
