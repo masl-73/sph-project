@@ -71,7 +71,7 @@ Generate comprehensive data plots from checkpoints:
 ### Real-time Analysis
 | Energy Conservation | Mixing Layer Width |
 |:---:|:---:|
-| ![Energy Latest](energy_latest.png) | ![Mixing Latest](mixing_latest.png) |
+| <img src="energy_latest.png" width="100%"> | <img src="mixing_latest.png" width="100%"> |
 
 ## 🧪 Physical Analysis Suite
 
@@ -82,7 +82,7 @@ The **Vorticity Field** shows the formation of pairs of counter-rotating vortice
 
 | Final Vorticity Evolution | Enstrophy Evolution |
 |:---:|:---:|
-| <img src="vorticity_evolution.gif" width="500"> | ![Enstrophy](enstrophy.png) |
+| <img src="vorticity_evolution.gif" width="100%"> | <img src="enstrophy.png" width="100%"> |
 
 **Deep Dive: The Enstrophy Curve Breakdown**
 The enstrophy plot is a "heartbeat" of the simulation's complexity. Here is what the specific features represent:
