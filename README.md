@@ -84,6 +84,11 @@ The **Vorticity Field** shows the formation of pairs of counter-rotating vortice
 |:---:|:---:|
 | ![Vorticity Latest](vorticity_latest.png) | ![Enstrophy](enstrophy.png) |
 
+**Understanding Enstrophy:**
+Enstrophy ($\mathcal{E}$) is defined as the integral of the square of vorticity over the domain: $\mathcal{E} = \int_{\Omega} \omega^2 dA$. 
+- **What it shows**: It serves as a direct proxy for the **total amount of rotation** and **turbulent intensity** in the fluid. 
+- **Why the curve grows**: At the start of the simulation ($t=0$), the enstrophy is near zero because the fluids are at rest. As the Rayleigh-Taylor bubbles and spikes grow, the velocity shear at the interface triggers **Kelvin-Helmholtz instabilities**, creating large-scale vortices. The sharp rise in the enstrophy plot corresponds to the transition from smooth laminar flow to a complex, vortex-dominated state.
+
 ### 2. Spectra & Statistical Physics
 The **Kinetic Energy Power Spectrum** confirms that the simulation resolves turbulent scales, showing a slope consistent with **2D Turbulence theory** ($k^{-3}$). The **Density PDF** demonstrates the effectiveness of the Tait Equation of State in maintaining distinct fluid phases.
 
