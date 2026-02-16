@@ -1,0 +1,27 @@
+# Ignore everything
+*
+
+# Whitelist src directory and its contents
+!src/
+!src/**
+
+# Whitelist root scripts
+!run_simulation.sh
+!run_analysis.sh
+
+# Whitelist requirements (if any, though none seen yet, good practice)
+!requirements.txt
+!README.md
+!.gitignore
+
+# Explicitly ignore heavy or generated folders even if they sneak in
+data/
+output/
+output_analysis/
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+symulacja 1/
+symulacja 2/
+doc/
