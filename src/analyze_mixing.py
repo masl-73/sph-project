@@ -111,7 +111,11 @@ def main():
     plt.xlabel('Time (s)', color='white')
     plt.ylabel('Width (m)', color='white')
     plt.title(f'Mixing Layer Growth (A={Atwood:.2f})', color='white')
-    plt.ylim(0, 0.055)
+    plt.ylim(-0.002, 0.055)
+    plt.xlim(0, times[-1] * 1.02)
+    
+    print(f"First 5 widths: {widths[:5]}")
+    print(f"First 5 times: {times[:5]}")
     
     ax.tick_params(axis='x', colors='white')
     ax.tick_params(axis='y', colors='white')
