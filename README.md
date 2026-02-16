@@ -84,10 +84,13 @@ The **Vorticity Field** shows the formation of pairs of counter-rotating vortice
 |:---:|:---:|
 | ![Vorticity Latest](vorticity_latest.png) | ![Enstrophy](enstrophy.png) |
 
-**Understanding Enstrophy:**
-Enstrophy ($\mathcal{E}$) is defined as the integral of the square of vorticity over the domain: $\mathcal{E} = \int_{\Omega} \omega^2 dA$. 
-- **What it shows**: It serves as a direct proxy for the **total amount of rotation** and **turbulent intensity** in the fluid. 
-- **Why the curve grows**: At the start of the simulation ($t=0$), the enstrophy is near zero because the fluids are at rest. As the Rayleigh-Taylor bubbles and spikes grow, the velocity shear at the interface triggers **Kelvin-Helmholtz instabilities**, creating large-scale vortices. The sharp rise in the enstrophy plot corresponds to the transition from smooth laminar flow to a complex, vortex-dominated state.
+**Deep Dive: The Enstrophy Curve Breakdown**
+The enstrophy plot is a "heartbeat" of the simulation's complexity. Here is what the specific features represent:
+
+1.  **The Initial High Peak (Numerical Adjustment)**: This spike at $t \approx 0$ is a common numerical artifact in SPH. It occurs as particles, initially placed in a geometric grid (even with jitter), "settle" into a pressure-equilibrium state under gravity. The Tait Equation of State is stiff, meaning small density fluctuations cause high initial pressure forces, creating a burst of local rotation that quickly dissipates.
+2.  **The Main Growth Phase**: As the Rayleigh-Taylor "mushrooms" (bubbles and spikes) begin to develop, the velocity shear between the rising light fluid and falling heavy fluid generates large-scale vortices. This is the **Kelvin-Helmholtz instability** in action. More vortices = higher enstrophy.
+3.  **Stabilization & Local Maxima**: When the large-scale "mushroom heads" are fully formed and rotating, the enstrophy reaches a plateau. At this stage, the rate of vorticity production (from gravity-driven growth) is roughly balanced by viscous dissipation.
+4.  **The Final Decay**: As the instability reaches the top and bottom boundaries (Ghost Particles), the primary growth is physically limited. Turbulence enters a "decay" phase where viscosity dominates, breaking down the eddies into internal heat, leading to a steady decrease in enstrophy.
 
 ### 2. Spectra & Statistical Physics
 The **Kinetic Energy Power Spectrum** confirms that the simulation resolves turbulent scales, showing a slope consistent with **2D Turbulence theory** ($k^{-3}$). The **Density PDF** demonstrates the effectiveness of the Tait Equation of State in maintaining distinct fluid phases.
