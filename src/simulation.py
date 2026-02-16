@@ -55,9 +55,9 @@ def perform_analysis(step, t, solver, history):
     # 3. Live Plots
     save_analysis_plots(step, t, pos, vel, history)
     
-    print(f"  Rho Avg: {np.mean(dens):.1f} (Min: {np.min(dens):.1f}, Max: {np.max(dens):.1f})")
-    print(f"  Max Vel: {np.max(np.linalg.norm(vel, axis=1)):.2f}")
-    print(f"  Energy: Mech={Ek+Ep:.4e}, Int={internal_energy:.4e}, Tot={Etot:.4e}")
+    print(f"  Rho Avg: {np.mean(dens):.1f} (Min: {np.min(dens):.1f}, Max: {np.max(dens):.1f})", flush=True)
+    print(f"  Max Vel: {np.max(np.linalg.norm(vel, axis=1)):.2f}", flush=True)
+    print(f"  Energy: Mech={Ek+Ep:.4e}, Int={internal_energy:.4e}, Tot={Etot:.4e}", flush=True)
 
 # --- Simulation Orchestration ---
 
@@ -115,7 +115,7 @@ def _run_simulation_loop(solver, start_step, max_steps, dt, viz_mode, history):
         # Visualization & Analysis
         if step % VIZ_INTERVAL == 0:
             current_t = step * dt
-            print(f"Step {step} (t={current_t:.4f}s)")
+            print(f"Step {step} (t={current_t:.4f}s)", flush=True)
             perform_visualization(step, solver, viz_mode)
             perform_analysis(step, current_t, solver, history)
 

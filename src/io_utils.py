@@ -29,7 +29,7 @@ def save_checkpoint(step, positions, velocities, masses, densities, colors, rho_
     np.savez(filename, step=step, positions=positions, velocities=velocities, 
              masses=masses, densities=densities, colors=colors, rho_refs=rho_refs,
              internal_energy=internal_energy)
-    print(f"Checkpoint saved: {filename}")
+    print(f"Checkpoint saved: {filename}", flush=True)
 
 def load_latest_checkpoint(data_dir='data'):
     """Loads the most recent checkpoint from the data directory."""
@@ -40,7 +40,7 @@ def load_latest_checkpoint(data_dir='data'):
         return None
     # Sort by step number in filename
     latest_file = max(files, key=lambda x: int(x.split('_')[-1].split('.')[0]))
-    print(f"Loading checkpoint: {latest_file}")
+    print(f"Loading checkpoint: {latest_file}", flush=True)
     return np.load(latest_file)
 
 def load_or_init_state(h):
@@ -55,7 +55,7 @@ def load_or_init_state(h):
         # Handle backward compatibility for checkpoints without internal_energy
         internal_energy = float(checkpoint['internal_energy']) if 'internal_energy' in checkpoint else 0.0
         
-        print(f"Resuming simulation from step {start_step}")
+        print(f"Resuming simulation from step {start_step}", flush=True)
         return (start_step, 
                 checkpoint['positions'], checkpoint['velocities'], 
                 checkpoint['masses'], checkpoint['densities'], 
@@ -85,7 +85,9 @@ def rebuild_history(data_dir='data'):
     dt = 0.000004
     g = 100.0 # Standard gravity for potential energy calc
     
-    for filename in files:
+    for i, filename in enumerate(files):
+        if i % 10 == 0:
+            print(f"  Processed {i}/{len(files)} checkpoints...", flush=True)
         try:
             data = np.load(filename)
             step = int(data['step'])
