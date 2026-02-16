@@ -128,6 +128,15 @@ This viscosity term performs dissipative work on the particles, effectively conv
 #### Mixing Layer Growth
 
 The **Mixing Layer Width** plot (mixing_latest.png) represents the vertical thickness of the region where the two fluids are actively interpenetrating. It is calculated by tracking the vertical distance between the lowest point of the "heavy" fluid (spikes) and the highest point of the "light" fluid (bubbles). Monitoring this growth is essential for verifying RTI theory, specifically the transition from linear growth to the nonlinear regime and eventually to turbulent mixing.
+ 
+**Deep Dive: Deciphering the Mixing Width**
+The growth of the mixing layer is the "signature" of the Rayleigh-Taylor instability. Our simulation measures this specifically to compare with theoretical models:
+ 
+1.  **Quadratic Growth ($t^2$):** RTI theory predicts that in the self-similar regime, the width $h$ grows as $h = \alpha A g t^2$. The fact that our plot follows a parabolic curve confirms that we have successfully captured the gravity-driven acceleration of the fluid front.
+2.  **Atwood Number ($A$):** This represents the density contrast between the fluids: $A = (\rho_H - \rho_L) / (\rho_H + \rho_L)$. In our case, with $\rho_H=3000$ and $\rho_L=1000$, $A=0.5$. A higher Atwood number leads to faster, more asymmetric growth (narrow spikes, wide bubbles).
+3.  **The $\alpha$ Coefficient:** The "efficiency" of mixing. Experimental values typically fall between $0.03$ and $0.07$. Our simulation's fitted $\alpha$ (visible in the legend of `mixing_width.png`) validates if our spatial resolution and viscosity are tuned correctly.
+4.  **Bubbles vs. Spikes:** The width is the sum of bubble height $h_b$ and spike depth $h_s$. In high Atwood flows, the spikes fall much faster than the bubbles rise, a feature clearly visible in the asymmetric vertical development of the Neon visualization.
+
 
 #### Boundary Conditions (Ghost Particles)
 
