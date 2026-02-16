@@ -17,6 +17,14 @@
 !*.png
 !combined_evolution.gif
 !combined_evolution.mp4
+!energy_balance.png
+!mixing_width.png
+!enstrophy.png
+!power_spectrum.png
+!density_pdf.png
+!vorticity_latest.png
+!energy_latest.png
+!mixing_latest.png
 
 # Explicitly ignore heavy or generated folders even if they sneak in
 data/
